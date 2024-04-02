@@ -8,6 +8,7 @@ const EditableListing = (props) => {
     const [isCustom, setIsCustom] = useState(listing.isCustom)
     const [hasAgeTrophy, setHasAgeTrophy] = useState(listing.hasAgeTrophy)
     const [canInit, setCanInit] = useState(listing.canInit)
+    const [enablePreview, setEnablePreview] = useState(false)
     const [imageSource, setImageSource] = useState(`http://pets.neopets.com/cpn/${petName}/1/4.png`)
 
     useEffect(() => {
@@ -18,9 +19,11 @@ const EditableListing = (props) => {
         }, index)
     }, [isCustom, hasAgeTrophy, canInit]);
 
-    useEffect(()=> {
-        console.log("rerender")
+    useEffect(() => {
         setImageSource(`http://pets.neopets.com/cpn/${petName}/1/4.png`)
+        setIsCustom(listing.isCustom)
+        setHasAgeTrophy(listing.hasAgeTrophy)
+        setCanInit(listing.canInit)
     }, [petName])
 
     const renderFallbackImg = () => {
@@ -28,33 +31,40 @@ const EditableListing = (props) => {
     }
 
 
-    return <>
-        <div className="listing-setting-container" key={index}>
-            <div className="d-flex justify-between">
-                Is Custom
-                <input
-                    type='checkbox'
-                    checked={isCustom}
-                    onChange={() => setIsCustom(!isCustom)}></input>
-            </div>
-            <div className="d-flex justify-between">
-                Has Age Trophy
-                <input
-                    type='checkbox'
-                    checked={hasAgeTrophy}
-                    onChange={() => setHasAgeTrophy(!hasAgeTrophy)}></input>
-            </div>
-            <div className="d-flex justify-between">
-                Cannot Initiate
-                <input
-                    type='checkbox'
-                    checked={!canInit}
-                    onChange={() => setCanInit(!canInit)}></input>
-            </div>
-            <h3>{petName} {petDetail && `- ${petDetail}`}</h3>
-            <img onError={()=>renderFallbackImg()} src={imageSource}></img>
+    return <div className="listing-setting-container" key={index}>
+        <div className="listing-setting-field">
+            <input
+                type='checkbox'
+                checked={isCustom}
+                onChange={() => setIsCustom(!isCustom)}></input>
+            Is Custom
         </div>
-    </>
+        <div className="listing-setting-field">
+            <input
+                type='checkbox'
+                checked={hasAgeTrophy}
+                onChange={() => setHasAgeTrophy(!hasAgeTrophy)}></input>
+            Has Age Trophy
+        </div>
+        <div className="listing-setting-field">
+            <input
+                type='checkbox'
+                checked={!canInit}
+                onChange={() => setCanInit(!canInit)}></input>
+            Cannot Initiate
+        </div>
+        <div className="listing-setting-field">
+            <input
+                type='checkbox'
+                checked={enablePreview}
+                onChange={() => setEnablePreview(!enablePreview)}></input>
+            Preview
+        </div>
+        <h3><i>{petName} {petDetail && `- ${petDetail}`}</i></h3>
+        {enablePreview &&
+            <img onError={() => renderFallbackImg()} src={imageSource}></img>
+        }
+    </div>
 }
 
 export default EditableListing

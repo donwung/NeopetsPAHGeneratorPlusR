@@ -30,7 +30,7 @@ const generateCopyPastableHTML_stacked = (listings, username) => {
             }
 
             if (i != listings.length - 1) {
-                pastableString += `<br>\n\n`
+                pastableString += `<br>\n`
             }
 
 
