@@ -109,7 +109,8 @@ function App() {
 
     return (
         <>
-            <h1>PAH GENERATOR PLUS R(eact)</h1>
+            <h1>PAH GENERATOR +R</h1>
+            {/* TODO: add a how-to */}
             {/* <div>
                 <h3>how it works</h3>
                 <p>paste one listing into the first box</p>
@@ -151,6 +152,10 @@ function App() {
                 <img src="https://images.neopets.com/games/trophies/trophy_oldpet_1.gif" style={{ width: "25px", height: "25px" }}></img>
                 <img src="https://images.neopets.com/halloween/spooky_suprise/dd_close_box.png" style={{ width: "25px", height: "25px" }}></img>
             </div> */}
+            {/* TODO: add credits */}
+            {/* TODO: add readme */}
+            {/* TODO: convert from dark mode to light mode and something neopets friendly */}
+            {/* TODO: move all style attributes to css classes */}
         </>
     )
 }
