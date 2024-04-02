@@ -16,28 +16,28 @@ const EditableListing = (props) => {
 
     return <>
         <div key={index}>
-            <h3>petname: {petName}, index: {index}</h3>
+            <h3>petname: {petName}</h3>
             <div>
-                <div style={{ display: "flex", flexDirection: "column" }}>
-                    <div>
-                        isCustom
+                <div style={{ display: "flex", flexDirection: "column", textAlign: "left"}}>
+                    <div style={{display: "flex", justifyContent: "space-between"}}>
+                        Is Custom
                         <input
                             type='checkbox'
                             checked={isCustom}
                             onChange={() => setIsCustom(!isCustom)}></input>
                     </div>
-                    <div>
-                        hasAgeTrophy
+                    <div style={{display: "flex", justifyContent: "space-between"}}>
+                        Has Age Trophy
                         <input
                             type='checkbox'
                             checked={hasAgeTrophy}
                             onChange={() => setHasAgeTrophy(!hasAgeTrophy)}></input>
                     </div>
-                    <div>
-                        canInit
+                    <div style={{display: "flex", justifyContent: "space-between"}}>
+                        Cannot Initiate
                         <input
                             type='checkbox'
-                            checked={canInit}
+                            checked={!canInit}
                             onChange={() => setCanInit(!canInit)}></input>
                     </div>
                 </div>

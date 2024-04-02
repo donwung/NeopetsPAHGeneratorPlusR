@@ -26,7 +26,7 @@ function App() {
                 parsableArray.push(lineInput)
             }
             if (listingInput[i] == "@") {
-                lineStart = i
+                lineStart = i + 1
                 lineEnd = listingInput.length
                 const lineInput = listingInput.substring(lineStart, lineEnd)
                 parsableArray.push(lineInput)
@@ -129,13 +129,13 @@ function App() {
             <div style={{ display: "flex", justifyContent: "space-around" }}>
                 {listings.length > 0 && <div>
                     <h2>{username}'s listings</h2>
-                    <p>can I do SBS: {canSBS ? "yeah - 2 listings" : "no - not 2 listings"}</p>
+                    {/* <p>can I do SBS: {canSBS ? "yeah - 2 listings" : "no - not 2 listings"}</p> */}
                     <div style={{ display: "flex", justifyContent: "space-around", gap: "40px" }}>
                         {listings.map((listing, index) => {
                             return <EditableListing listing={listing} index={index} editListingAtIdx={editListingAtIdx}></EditableListing>
                         })}
                     </div>
-                    <button onClick={() => console.log(listings)}>debug showall</button>
+                    {/* <button onClick={() => console.log(listings)}>debug showall</button> */}
                 </div>}
             </div>
             {canSBS ?
@@ -148,9 +148,9 @@ function App() {
                     <img src="https://images.neopets.com/caption/caption_1180.gif" style={{ width: "300px", height: "300px" }}></img>
                     <br></br>
                     custom placeholder
-                </div>
                 <img src="https://images.neopets.com/games/trophies/trophy_oldpet_1.gif" style={{ width: "25px", height: "25px" }}></img>
                 <img src="https://images.neopets.com/halloween/spooky_suprise/dd_close_box.png" style={{ width: "25px", height: "25px" }}></img>
+                </div>
             </div> */}
             {/* TODO: add credits */}
             {/* TODO: add readme */}
