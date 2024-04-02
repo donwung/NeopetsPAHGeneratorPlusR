@@ -111,7 +111,7 @@ function App() {
 
     return (
         <>
-            <h1>PAH GENERATOR PLUS plus</h1>
+            <h1>PAH GENERATOR PLUS R(eact)</h1>
             {/* <div>
                 <h3>how it works</h3>
                 <p>paste one listing into the first box</p>
