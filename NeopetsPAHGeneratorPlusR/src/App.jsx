@@ -92,6 +92,7 @@ function App() {
         let petDetail = ""
         let hasName = false
 
+        // checks for hyphen to separate name and details
         for (let i = 0; i < line.length; i++) {
             if (line[i] == "-") {
                 hasName = true
@@ -101,6 +102,17 @@ function App() {
             }
         }
 
+        // checks for "the" to separate name and details
+        const regex_the = line.search(/\sthe\s/i)
+        if(regex_the != -1){
+            console.log(regex_the)
+            hasName = true
+            petName = line.substring(0, regex_the).replace(/\s$/g, '');
+            petDetail = line.substring(regex_the+4, line.length).replace(/^\s/g, '');
+        }
+
+
+        // if names and detail can't be separated, the whole line will be its name
         if (hasName == false) {
             petName = line.substring(0, line.length).replace(/\s$/g, '');
             petDetail = "";
