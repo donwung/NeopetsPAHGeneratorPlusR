@@ -1,10 +1,8 @@
 import { useEffect, useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
 import './App.css'
-import EditableListing from './EditableListing'
-import SideBySideCode from './SideBySideCode'
-import StackedOrSingleCode from './StackedOrSingleCode'
+import EditableListing from './components/EditableListing'
+import SideBySideCode from './components/SideBySideCode'
+import StackedOrSingleCode from './components/StackedOrSingleCode'
 
 function App() {
     const [canSBS, setCanSBS] = useState(false)
