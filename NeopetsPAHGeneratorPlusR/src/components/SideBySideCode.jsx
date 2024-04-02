@@ -13,20 +13,27 @@ const SideBySideCode = (props) => {
             for (let i = 0; i < listings.length; i++) {
                 const petName = listings[i].petName
                 const petDetail = listings[i].petDetail
-                pastableString += `<a href="/petlookup.phtml?pet=${petName}">\n<img src="//pets.neopets.com/cpn/${petName}/1/4.png">\n</a><br>${petName} - ${petDetail}\n`
+                pastableString += `<a href="/petlookup.phtml?pet=${petName}">\n<img src="//pets.neopets.com/cpn/${petName}/1/4.png">\n</a><br>${petName}`
+
+                if (petDetail != "") {
+                    pastableString += ` - ${petDetail}\n`
+                } else {
+                    pastableString += `\n`
+                }
+
                 if (i != listings.length - 1) {
-                    pastableString += `<br>\n\n`
+                    pastableString += `<br>\n`
                 }
 
                 if (listings[i].hasAgeTrophy) {
-                    pastableString += `<img src="https://images.neopets.com/games/trophies/trophy_oldpet_1.gif" style={{ width: "25px", height: "25px" }}></img>\n`
+                    pastableString += `<img src="https://images.neopets.com/games/trophies/trophy_oldpet_1.gif" style="width: 25px; height: 25px;"></img>\n`
                 }
                 if (listings[i].canInit) {
-                    pastableString += `<img src="https://images.neopets.com/halloween/spooky_suprise/dd_close_box.png" style={{ width: "25px", height: "25px" }}></img>\n`
+                    pastableString += `<img src="https://images.neopets.com/halloween/spooky_suprise/dd_close_box.png" style="width: 25px; height: 25px;"></img>\n`
                 }
 
             }
-            pastableString += `\n<h2 style="border-bottom: 1px solid #818589; margin-bottom: 25px; padding-bottom:5px;">\n<a href="https://www.neopets.com/neomessages.phtml?type=send&recipient=${username}">\n@${username}\n</a>\n</h2>`
+            pastableString += `<h2 style="border-bottom: 1px solid #818589; margin-bottom: 25px; padding-bottom:5px;">\n<a href="https://www.neopets.com/neomessages.phtml?type=send&recipient=${username}">\n@${username}\n</a>\n</h2>`
 
             setCopyPastableHTML_stacked(pastableString)
         }
@@ -50,36 +57,48 @@ const SideBySideCode = (props) => {
                 pastableString += `<a href="/petlookup.phtml?pet=${listing1.petName}">\n<img src="http://pets.neopets.com/cpn/${listing1.petName}/1/4.png">\n</a>`
             }
 
-            pastableString += `<br>${listing1.petName} - ${listing1.petDetail}\n`
+            pastableString += `<br>${listing1.petName}`
+
+            if (listing1.petDetail != "") {
+                pastableString += ` - ${listing1.petDetail}\n`
+            } else {
+                pastableString += `\n`
+            }
 
             if (listing1.hasAgeTrophy) {
-                pastableString += `<img src="https://images.neopets.com/games/trophies/trophy_oldpet_1.gif" style={{ width: "25px", height: "25px" }}></img>\n`
+                pastableString += `<img src="https://images.neopets.com/games/trophies/trophy_oldpet_1.gif" style="width: 25px; height: 25px;"></img>\n`
             }
             if (!listing1.canInit) {
-                pastableString += `<img src="https://images.neopets.com/halloween/spooky_suprise/dd_close_box.png" style={{ width: "25px", height: "25px" }}></img>\n`
+                pastableString += `<img src="https://images.neopets.com/halloween/spooky_suprise/dd_close_box.png" style="width: 25px; height: 25px;"></img>\n`
             }
 
             pastableString += `</div></div>`
 
 
             // LISTING RIGHT
-            pastableString += `\n\n<div style="width: 48%; float: right;">\n<div style="padding-right: 15%;">\n`
+            pastableString += `\n<div style="width: 48%; float: right;">\n<div style="padding-right: 15%;">\n`
 
             if (listing2.isCustom) {
                 pastableString += `<img src="https://images.neopets.com/caption/caption_1180.gif" style="width: 300px; height: 300px;">\n`
             } else {
                 pastableString += `<a href="/petlookup.phtml?pet=${listing2.petName}">\n<img src="http://pets.neopets.com/cpn/${listing2.petName}/1/4.png">\n</a>`
             }
-            pastableString += `<br>${listing2.petName} - ${listing2.petDetail}\n`
+            pastableString += `<br>${listing2.petName}`
+
+            if (listing2.petDetail != "") {
+                pastableString += ` - ${listing2.petDetail}\n`
+            } else {
+                pastableString += `\n`
+            }
 
             if (listing2.hasAgeTrophy) {
-                pastableString += `<img src="https://images.neopets.com/games/trophies/trophy_oldpet_1.gif" style={{ width: "25px", height: "25px" }}></img>\n`
+                pastableString += `<img src="https://images.neopets.com/games/trophies/trophy_oldpet_1.gif" style="width: 25px; height: 25px;"></img>\n`
             }
             if (!listing2.canInit) {
-                pastableString += `<img src="https://images.neopets.com/halloween/spooky_suprise/dd_close_box.png" style={{ width: "25px", height: "25px" }}></img>\n`
+                pastableString += `<img src="https://images.neopets.com/halloween/spooky_suprise/dd_close_box.png" style="width: 25px; height: 25px;"></img>\n`
             }
 
-            pastableString += `</div></div></div>\n\n`
+            pastableString += `</div></div></div>\n`
 
             pastableString += `<br>`
 
@@ -100,13 +119,21 @@ const SideBySideCode = (props) => {
                 <h2>
                     side-by-side listings
                 </h2>
-                <textarea style={{ width: "100%", height: "300px" }} placeholder='side-by-side code here' value={copyPastableHTML_SBS}></textarea>
+                <textarea
+                    style={{ width: "100%", height: "300px" }}
+                    placeholder='side-by-side code here'
+                    value={copyPastableHTML_SBS}
+                    onChange={e => setCopyPastableHTML_SBS(e.target.value)}></textarea>
             </div>
             <div style={{ width: "50%" }}>
                 <h2>
                     stacked listings
                 </h2>
-                <textarea style={{ width: "100%", height: "300px" }} placeholder='stacked code here' value={copyPastableHTML_stacked}></textarea>
+                <textarea
+                    style={{ width: "100%", height: "300px" }}
+                    placeholder='stacked code here'
+                    value={copyPastableHTML_stacked}
+                    onChange={e => setCopyPastableHTML_stacked(e.target.value)}></textarea>
             </div>
         </div>
     </>

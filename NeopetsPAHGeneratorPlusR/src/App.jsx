@@ -42,13 +42,20 @@ function App() {
         let nameEnd = 0
         let petName = ""
         let petDetail = ""
+        let _hasName = false
 
         for (let i = 0; i < line.length; i++) {
             if (line[i] == "-") {
+                _hasName = true
                 nameEnd = i
                 petName = line.substring(nameStart, nameEnd).replace(/\s$/g, '');
                 petDetail = line.substring(nameEnd + 1, line.length).replace(/^\s/g, '');
             }
+        }
+
+        if (_hasName == false) {
+            petName = line.substring(0, line.length).replace(/\s$/g, '');
+            petDetail = "";
         }
 
         return { name: petName, detail: petDetail }
@@ -103,9 +110,9 @@ function App() {
         setListings(updatedListing)
     }
 
-    useEffect(()=>{
+    useEffect(() => {
         console.log("listings updated")
-    },[listings])
+    }, [listings])
 
     return (
         <>
