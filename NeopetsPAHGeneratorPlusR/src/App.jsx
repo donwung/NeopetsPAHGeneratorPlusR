@@ -142,11 +142,9 @@ function App() {
             <h2>@{username}'s listings</h2>
             {listings.length > 0 &&
                 <div className="listing-settings-wrapper">
-                    <div style={{ display: "flex", justifyContent: "space-around", gap: "40px" }}>
-                        {listings.map((listing, index) => {
-                            return <EditableListing listing={listing} index={index} editListingAtIdx={editListingAtIdx}></EditableListing>
-                        })}
-                    </div>
+                    {listings.map((listing, index) => {
+                        return <EditableListing listing={listing} index={index} editListingAtIdx={editListingAtIdx}></EditableListing>
+                    })}
                 </div>}
             {canSBS ?
                 <SideBySideCode listings={listings} username={username}></SideBySideCode> :
