@@ -15,24 +15,35 @@ const SideBySideCode = (props) => {
         setCopyPastableHTML_SBS(pastableString_SBS)
     }, [listings])
 
+    const copyToClipboard = (_copyable) => {
+        console.log(_copyable)
+        navigator.clipboard.writeText(_copyable)
+    }
+
     return <>
-        <div style={{ display: "flex", justifyContent: "space-around", gap: "20px", width: "60vw", margin: "auto" }}>
-            <div style={{ width: "50%" }}>
-                <h2>
-                    side-by-side listings
-                </h2>
+        <div className="output-wrapper">
+            <div className="output-container">
+                <div className="output-container-header">
+                    <h2>
+                        Side-by-side Listings
+                    </h2>
+                    <button onClick={()=>copyToClipboard(copyPastableHTML_SBS)}>Copy to Clipboard</button>
+                </div>
                 <textarea
-                    style={{ width: "100%", height: "300px" }}
+                    className="output-textarea"
                     placeholder='side-by-side code here'
                     value={copyPastableHTML_SBS}
                     onChange={e => setCopyPastableHTML_SBS(e.target.value)}></textarea>
             </div>
-            <div style={{ width: "50%" }}>
-                <h2>
-                    stacked listings
-                </h2>
+            <div className="output-container">
+                <div className="output-container-header">
+                    <h2>
+                        Listings in a column
+                    </h2>
+                    <button onClick={() => copyToClipboard(copyPastableHTML_stacked)}>Copy to Clipboard</button>
+                </div>
                 <textarea
-                    style={{ width: "100%", height: "300px" }}
+                    className="output-textarea"
                     placeholder='stacked code here'
                     value={copyPastableHTML_stacked}
                     onChange={e => setCopyPastableHTML_stacked(e.target.value)}></textarea>

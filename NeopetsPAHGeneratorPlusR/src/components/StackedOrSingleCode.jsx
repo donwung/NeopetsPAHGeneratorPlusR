@@ -8,29 +8,32 @@ const StackedOrSingleCode = (props) => {
     useEffect(() => {
         const pastableString = generateCopyPastableHTML_stacked(listings, username)
         setCopyPastableHTML(pastableString)
-        console.log(pastableString)
+        // console.log(pastableString)
     }, [listings])
 
     return <>
-        <div style={{ display: "flex", justifyContent: "space-around", gap: "20px", width: "60vw", margin: "auto" }}>
-            <div style={{ width: "40%" }}>
-                <h2>
-                    side-by-side listings
-                </h2>
+        <div className="output-wrapper">
+            <div className="output-container">
+                <div className="output-container-header">
+                    <h2>
+                        Side-by-side Listings
+                    </h2>
+                    <button>Disabled</button>
+                </div>
                 <textarea
-                    style={{ width: "100%", height: "300px" }}
+                    className="output-textarea"
                     placeholder='disabled by having more or less than two listings'
                     disabled="true"></textarea>
             </div>
-            <div style={{ width: "50%", border: "2px solid white" }}>
-                <div style={{display: "flex", justifyContent: "space-between"}}>
+            <div className="output-container">
+                <div className="output-container-header">
                     <h2>
                         Listings in a column
                     </h2>
                     <button>Copy to Clipboard</button>
                 </div>
                 <textarea
-                    style={{ width: "100%", height: "300px", resize: "none" }}
+                    className="output-textarea"
                     placeholder='stacked code here'
                     value={copyPastableHTML}
                     onChange={e => setCopyPastableHTML(e.target.value)}></textarea>
