@@ -5,13 +5,15 @@ import SideBySideCode from './components/SideBySideCode'
 import StackedOrSingleCode from './components/StackedOrSingleCode'
 
 function App() {
+    // canSBS determines if two listings can be posted side by side (SBS)
+    // only used for when there are only two listings
     const [canSBS, setCanSBS] = useState(false)
 
     const [listings, setListings] = useState([])
     const [username, setUsername] = useState("")
 
-    const listingPlaceHolderText = `Listing: \n\nPetname - Color species \nPetname - Color species \n\n@username`
-
+    // this parses the textarea
+    // the textarea is broken up into elements in an array for each line break
     const handleOnChangeListingInput = e => {
         const listingInput = e.target.value
 
@@ -37,30 +39,8 @@ function App() {
         parseListingInput(parsableArray)
     }
 
-    const getPetInfo = (line) => {
-        let nameStart = 0
-        let nameEnd = 0
-        let petName = ""
-        let petDetail = ""
-        let _hasName = false
-
-        for (let i = 0; i < line.length; i++) {
-            if (line[i] == "-") {
-                _hasName = true
-                nameEnd = i
-                petName = line.substring(nameStart, nameEnd).replace(/\s$/g, '');
-                petDetail = line.substring(nameEnd + 1, line.length).replace(/^\s/g, '');
-            }
-        }
-
-        if (_hasName == false) {
-            petName = line.substring(0, line.length).replace(/\s$/g, '');
-            petDetail = "";
-        }
-
-        return { name: petName, detail: petDetail }
-    }
-
+    // this cleans up an array of text area lines - removes blank elements
+    // also does minor validation for input
     const parseListingInput = (lines) => {
         for (let i = 0; i < lines.length; i++) {
             if (lines[i].replace(/\s/g, '').length < 1) {
@@ -77,31 +57,59 @@ function App() {
             console.log(lines)
             setMyListings(lines)
         } else {
-            console.log("need top bun")
+            console.log("need top bun") // failure message when "listing:" isn't the first line
             setMyListings([])
         }
     }
 
+    // creates default values for a listings array
     const setMyListings = petsArray => {
         let myListings = []
         for (let i = 0; i < petsArray.length; i++) {
+            const petInfo = getPetInfo(petsArray[i])
             const onePet = {
-                petName: getPetInfo(petsArray[i]).name,
-                petDetail: getPetInfo(petsArray[i]).detail,
+                petName: petInfo.name,
+                petDetail: petInfo.detail,
                 isCustom: false,
                 hasAgeTrophy: false,
                 canInit: true
             }
             myListings.push(onePet)
         }
-        if (myListings.length == 2) {
-            setCanSBS(true)
-        } else {
-            setCanSBS(false)
-        }
+
+        setCanSBS(myListings.length == 2 ? true : false)
         setListings(myListings)
     }
 
+    // gets general pet information
+    // receives a string to be parsed into a dictionary
+    // outputs a dictionary of name and detail
+    // detail will be omitted if there is no hyphen
+    const getPetInfo = (line) => {
+        let nameStart = 0
+        let nameEnd = 0
+        let petName = ""
+        let petDetail = ""
+        let hasName = false
+
+        for (let i = 0; i < line.length; i++) {
+            if (line[i] == "-") {
+                hasName = true
+                nameEnd = i
+                petName = line.substring(nameStart, nameEnd).replace(/\s$/g, '');
+                petDetail = line.substring(nameEnd + 1, line.length).replace(/^\s/g, '');
+            }
+        }
+
+        if (hasName == false) {
+            petName = line.substring(0, line.length).replace(/\s$/g, '');
+            petDetail = "";
+        }
+
+        return { name: petName, detail: petDetail }
+    }
+
+    // liftable callback for when a component needs change settings
     const editListingAtIdx = (_newSettings, idx) => {
         const updatedListingSettings = { ...listings[idx], ..._newSettings }
         let updatedListing = [...listings]
@@ -111,7 +119,6 @@ function App() {
     }
 
     useEffect(() => {
-        console.log("listings updated")
     }, [listings])
 
     return (
@@ -130,35 +137,22 @@ function App() {
                 <h2>enter listing here</h2>
                 <textarea
                     style={{ width: "30vw", height: "150px" }}
-                    placeholder={listingPlaceHolderText}
+                    placeholder={`Listing: \n\nPetname - Color species \nPetname - Color species \n\n@username`}
                     onChange={e => handleOnChangeListingInput(e)}></textarea>
             </div>
             <div style={{ display: "flex", justifyContent: "space-around" }}>
                 {listings.length > 0 && <div>
                     <h2>{username}'s listings</h2>
-                    {/* <p>can I do SBS: {canSBS ? "yeah - 2 listings" : "no - not 2 listings"}</p> */}
                     <div style={{ display: "flex", justifyContent: "space-around", gap: "40px" }}>
                         {listings.map((listing, index) => {
                             return <EditableListing listing={listing} index={index} editListingAtIdx={editListingAtIdx}></EditableListing>
                         })}
                     </div>
-                    {/* <button onClick={() => console.log(listings)}>debug showall</button> */}
                 </div>}
             </div>
             {canSBS ?
                 <SideBySideCode listings={listings} username={username}></SideBySideCode> :
                 <StackedOrSingleCode listings={listings} username={username}></StackedOrSingleCode>}
-
-            {/* this is for custom listings */}
-            {/* <div style={{ width: "48%", float: "right" }}>
-                <div style={{ paddingRight: "15%" }}>
-                    <img src="https://images.neopets.com/caption/caption_1180.gif" style={{ width: "300px", height: "300px" }}></img>
-                    <br></br>
-                    custom placeholder
-                <img src="https://images.neopets.com/games/trophies/trophy_oldpet_1.gif" style={{ width: "25px", height: "25px" }}></img>
-                <img src="https://images.neopets.com/halloween/spooky_suprise/dd_close_box.png" style={{ width: "25px", height: "25px" }}></img>
-                </div>
-            </div> */}
             {/* TODO: add credits */}
             {/* TODO: add readme */}
             {/* TODO: convert from dark mode to light mode and something neopets friendly */}
