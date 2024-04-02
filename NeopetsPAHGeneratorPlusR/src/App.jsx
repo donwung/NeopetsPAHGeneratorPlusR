@@ -133,23 +133,21 @@ function App() {
                 <p>paste into pot page</p>
                 <p>repeat if necessary</p>
             </div> */}
-            <div>
+            <div className="listing-input">
                 <h2>enter listing here</h2>
                 <textarea
-                    style={{ width: "30vw", height: "150px" }}
                     placeholder={`Listing: \n\nPetname - Color species \nPetname - Color species \n\n@username`}
                     onChange={e => handleOnChangeListingInput(e)}></textarea>
             </div>
-            <div style={{ display: "flex", justifyContent: "space-around" }}>
-                {listings.length > 0 && <div>
-                    <h2>{username}'s listings</h2>
+            <h2>@{username}'s listings</h2>
+            {listings.length > 0 &&
+                <div className="listing-settings-wrapper">
                     <div style={{ display: "flex", justifyContent: "space-around", gap: "40px" }}>
                         {listings.map((listing, index) => {
                             return <EditableListing listing={listing} index={index} editListingAtIdx={editListingAtIdx}></EditableListing>
                         })}
                     </div>
                 </div>}
-            </div>
             {canSBS ?
                 <SideBySideCode listings={listings} username={username}></SideBySideCode> :
                 <StackedOrSingleCode listings={listings} username={username}></StackedOrSingleCode>}
