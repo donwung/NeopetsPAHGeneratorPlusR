@@ -11,6 +11,11 @@ const StackedOrSingleCode = (props) => {
         // console.log(pastableString)
     }, [listings])
 
+    const copyToClipboard = (_copyable) => {
+        console.log(_copyable)
+        navigator.clipboard.writeText(_copyable)
+    }
+
     return <>
         <div className="output-wrapper">
             <div className="output-container">
@@ -30,7 +35,7 @@ const StackedOrSingleCode = (props) => {
                     <h2>
                         Listings in a column
                     </h2>
-                    <button>Copy to Clipboard</button>
+                    <button onClick={()=>copyToClipboard(copyPastableHTML)}>Copy to Clipboard</button>
                 </div>
                 <textarea
                     className="output-textarea"
