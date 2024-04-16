@@ -3,6 +3,7 @@ import './App.css'
 import EditableListing from './components/EditableListing'
 import SideBySideCode from './components/SideBySideCode'
 import StackedOrSingleCode from './components/StackedOrSingleCode'
+import Settings from './components/Settings'
 
 function App() {
     // canSBS determines if two listings can be posted side by side (SBS)
@@ -12,9 +13,14 @@ function App() {
     const [listings, setListings] = useState([])
     const [username, setUsername] = useState("")
 
+    const [settings, setSettings] = useState({
+        isCustomImgURL: "https://images.neopets.com/caption/caption_1180.gif",
+        cannotInitMedalImgURL: "https://images.neopets.com/halloween/spooky_suprise/dd_close_box.png",
+    })
+
     // this parses the textarea
     // the textarea is broken up into elements in an array for each line break
-    const handleOnChangeListingInput = e => {
+    const handleOnChangeListingInput = (e) => {
         const listingInput = e.target.value
 
         let parsableArray = []
@@ -63,7 +69,7 @@ function App() {
     }
 
     // creates default values for a listings array
-    const setMyListings = petsArray => {
+    const setMyListings = (petsArray) => {
         let myListings = []
         for (let i = 0; i < petsArray.length; i++) {
             const petInfo = getPetInfo(petsArray[i])
@@ -104,11 +110,11 @@ function App() {
 
         // checks for "the" to separate name and details
         const regex_the = line.search(/\sthe\s/i)
-        if(regex_the != -1){
+        if (regex_the != -1) {
             console.log(regex_the)
             hasName = true
             petName = line.substring(0, regex_the).replace(/\s$/g, '');
-            petDetail = line.substring(regex_the+4, line.length).replace(/^\s/g, '');
+            petDetail = line.substring(regex_the + 4, line.length).replace(/^\s/g, '');
         }
 
 
@@ -121,7 +127,7 @@ function App() {
         return { name: petName, detail: petDetail }
     }
 
-    // liftable callback for when a component needs change settings
+    // liftable callback for when a single pet needs change settings
     const editListingAtIdx = (_newSettings, idx) => {
         const updatedListingSettings = { ...listings[idx], ..._newSettings }
         let updatedListing = [...listings]
@@ -130,12 +136,20 @@ function App() {
         setListings(updatedListing)
     }
 
+    const handleSetSettings = (_updated) => {
+        setSettings(_updated)
+    }
+
     useEffect(() => {
-    }, [listings])
+    }, [listings, settings])
 
     return (
         <>
-            <h1>PAH GENERATOR +R</h1>
+            <div className='d-flex justify-between'>
+                <h3 className='flex-1'>?</h3>
+                <h1  className='flex-1'>PAH GENERATOR +R</h1>
+                <Settings settings={settings} handleSetSettings={handleSetSettings}></Settings>
+            </div>
             {/* TODO: add a how-to */}
             {/* <div>
                 <h3>how it works</h3>
@@ -159,12 +173,23 @@ function App() {
                     })}
                 </div>}
             {canSBS ?
-                <SideBySideCode listings={listings} username={username}></SideBySideCode> :
-                <StackedOrSingleCode listings={listings} username={username}></StackedOrSingleCode>}
+                <SideBySideCode
+                    data={{
+                        listings: listings,
+                        username: username
+                    }}
+                    settings={settings}
+                ></SideBySideCode> :
+                <StackedOrSingleCode
+                    data={{
+                        listings: listings,
+                        username: username
+                    }}
+                    settings={settings}
+                ></StackedOrSingleCode>}
             {/* TODO: add credits */}
             {/* TODO: add readme */}
             {/* TODO: convert from dark mode to light mode and something neopets friendly */}
-            {/* TODO: move all style attributes to css classes */}
         </>
     )
 }

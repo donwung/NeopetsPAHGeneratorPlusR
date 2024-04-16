@@ -2,14 +2,14 @@ import { useEffect, useState } from "react"
 import { generateCopyPastableHTML_stacked } from "./PrintScripts"
 
 const StackedOrSingleCode = (props) => {
-    const { listings, username } = props
+    const { listings, username } = props.data
     const [copyPastableHTML, setCopyPastableHTML] = useState("")
 
     useEffect(() => {
-        const pastableString = generateCopyPastableHTML_stacked(listings, username)
+        const pastableString = generateCopyPastableHTML_stacked(props.data, props.settings)
         setCopyPastableHTML(pastableString)
         // console.log(pastableString)
-    }, [listings])
+    }, [listings, props.settings])
 
     const copyToClipboard = (_copyable) => {
         console.log(_copyable)

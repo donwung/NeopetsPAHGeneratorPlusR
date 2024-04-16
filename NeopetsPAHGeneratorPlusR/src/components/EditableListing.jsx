@@ -27,7 +27,7 @@ const EditableListing = (props) => {
     }, [petName])
 
     const renderFallbackImg = () => {
-        setImageSource(`https://images.neopets.com/caption/caption_1180.gif`)
+        setImageSource(`https://i1.sndcdn.com/artworks-000162412458-1q7a2q-t500x500.jpg`)
     }
 
 

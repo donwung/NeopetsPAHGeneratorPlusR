@@ -1,4 +1,7 @@
-const generateCopyPastableHTML_stacked = (listings, username) => {
+const generateCopyPastableHTML_stacked = (_data, _settings) => {
+    const { listings, username } = _data
+    const settings = _settings
+
     let pastableString = ""
 
     if (listings.length > 0) {
@@ -12,7 +15,7 @@ const generateCopyPastableHTML_stacked = (listings, username) => {
             }
 
             if (petSettings.isCustom) {
-                pastableString += `<img src="https://images.neopets.com/caption/caption_1180.gif" style="width: 300px; height: 300px;">\n`
+                pastableString += `<img src="${settings.isCustomImgURL}" style="width: 300px; height: 300px;">\n`
             } else {
                 pastableString += `<a href="/petlookup.phtml?pet=${petName}">\n<img src="//pets.neopets.com/cpn/${petName}/1/4.png">\n</a><br>${petName} `
                 if (petDetail != "") {
@@ -26,7 +29,7 @@ const generateCopyPastableHTML_stacked = (listings, username) => {
                 pastableString += `<img src="https://images.neopets.com/games/trophies/trophy_oldpet_1.gif" style="width: 25px; height: 25px;"></img>\n`
             }
             if (!petSettings.canInit) {
-                pastableString += `<img src="https://images.neopets.com/halloween/spooky_suprise/dd_close_box.png" style="width: 25px; height: 25px;"></img>\n`
+                pastableString += `<img src="${settings.cannotInitMedalImgURL}" style="width: 25px; height: 25px;"></img>\n`
             }
 
             if (i != listings.length - 1) {
@@ -54,7 +57,7 @@ const generateCopyPastableHTML_SBS = (listings, username) => {
         pastableString += `\n<div style="width: 48%; float: left;">\n<div style="padding-left: 15%;">\n`
 
         if (listing1.isCustom) {
-            pastableString += `<img src="https://images.neopets.com/caption/caption_1180.gif" style="width: 300px; height: 300px;">\n`
+            pastableString += `<img src="${settings.isCustomImgURL}" style="width: 300px; height: 300px;">\n`
         } else {
             pastableString += `<a href="/petlookup.phtml?pet=${listing1.petName}">\n<img src="http://pets.neopets.com/cpn/${listing1.petName}/1/4.png">\n</a>`
         }
@@ -71,7 +74,7 @@ const generateCopyPastableHTML_SBS = (listings, username) => {
             pastableString += `<img src="https://images.neopets.com/games/trophies/trophy_oldpet_1.gif" style="width: 25px; height: 25px;"></img>\n`
         }
         if (!listing1.canInit) {
-            pastableString += `<img src="https://images.neopets.com/halloween/spooky_suprise/dd_close_box.png" style="width: 25px; height: 25px;"></img>\n`
+            pastableString += `<img src="${settings.cannotInitMedalImgURL}" style="width: 25px; height: 25px;"></img>\n`
         }
 
         pastableString += `</div></div>`
@@ -81,7 +84,7 @@ const generateCopyPastableHTML_SBS = (listings, username) => {
         pastableString += `\n<div style="width: 48%; float: right;">\n<div style="padding-right: 15%;">\n`
 
         if (listing2.isCustom) {
-            pastableString += `<img src="https://images.neopets.com/caption/caption_1180.gif" style="width: 300px; height: 300px;">\n`
+            pastableString += `<img src="${settings.isCustomImgURL}" style="width: 300px; height: 300px;">\n`
         } else {
             pastableString += `<a href="/petlookup.phtml?pet=${listing2.petName}">\n<img src="http://pets.neopets.com/cpn/${listing2.petName}/1/4.png">\n</a>`
         }
@@ -97,7 +100,7 @@ const generateCopyPastableHTML_SBS = (listings, username) => {
             pastableString += `<img src="https://images.neopets.com/games/trophies/trophy_oldpet_1.gif" style="width: 25px; height: 25px;"></img>\n`
         }
         if (!listing2.canInit) {
-            pastableString += `<img src="https://images.neopets.com/halloween/spooky_suprise/dd_close_box.png" style="width: 25px; height: 25px;"></img>\n`
+            pastableString += `<img src="${settings.cannotInitMedalImgURL}" style="width: 25px; height: 25px;"></img>\n`
         }
 
         pastableString += `</div></div></div>\n`
@@ -110,4 +113,4 @@ const generateCopyPastableHTML_SBS = (listings, username) => {
     return pastableString
 }
 
-export {generateCopyPastableHTML_stacked, generateCopyPastableHTML_SBS}
+export { generateCopyPastableHTML_stacked, generateCopyPastableHTML_SBS }
