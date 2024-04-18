@@ -4,6 +4,7 @@ import EditableListing from './components/EditableListing'
 import SideBySideCode from './components/SideBySideCode'
 import StackedOrSingleCode from './components/StackedOrSingleCode'
 import Settings from './components/Settings'
+import Help from './components/Help'
 
 function App() {
     // canSBS determines if two listings can be posted side by side (SBS)
@@ -146,19 +147,11 @@ function App() {
     return (
         <>
             <div className='d-flex justify-between'>
-                <h3 className='flex-1'>?</h3>
-                <h1  className='flex-1'>PAH GENERATOR +R</h1>
+                <Help></Help>
+                <h1 className='flex-1'>PAH GENERATOR +R</h1>
                 <Settings settings={settings} handleSetSettings={handleSetSettings}></Settings>
             </div>
-            {/* TODO: add a how-to */}
-            {/* <div>
-                <h3>how it works</h3>
-                <p>paste one listing into the first box</p>
-                <p>check any of the boxes if there's a custom (FFQ/PP/NP)</p>
-                <p>hit generate</p>
-                <p>paste into pot page</p>
-                <p>repeat if necessary</p>
-            </div> */}
+            
             <div className="listing-input">
                 <h2>enter listing here</h2>
                 <textarea

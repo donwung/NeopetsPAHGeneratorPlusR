@@ -148,6 +148,20 @@
   height: 0px;
 }
 
+.help{
+  position: relative;
+  height: 0px;
+  text-align: left;
+}
+
 .global-settings-cog {
   height: 40px;
+}
+
+.help-button {
+  font-size: x-small;
+}
+
+.help-button :hover{
+  font-size: large;
 }
