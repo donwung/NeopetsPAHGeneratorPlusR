@@ -44,16 +44,19 @@ const generateCopyPastableHTML_stacked = (_data, _settings) => {
     return pastableString
 }
 
-const generateCopyPastableHTML_SBS = (listings, username) => {
+const generateCopyPastableHTML_SBS = (_data, _settings) => {
+    const { listings, username } = _data
+    const settings = _settings
+
     let pastableString = ""
 
     if (listings.length > 0) {
         const listing1 = listings[0]
         const listing2 = listings[1]
 
+
         // LISTING LEFT
         pastableString += `<div style="width: 100%; overflow: hidden;">`
-
         pastableString += `\n<div style="width: 48%; float: left;">\n<div style="padding-left: 15%;">\n`
 
         if (listing1.isCustom) {
@@ -109,6 +112,8 @@ const generateCopyPastableHTML_SBS = (listings, username) => {
 
         pastableString += `<h2 style="border-bottom: 1px solid #818589; margin-bottom: 25px; padding-bottom: 5px;">\n<a href="http://www.neopets.com/neomessages.phtml?type=send&recipient=${username}">\n@${username}\n</a>\n</h2>`
     }
+
+    
 
     return pastableString
 }
